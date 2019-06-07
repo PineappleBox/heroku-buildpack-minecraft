@@ -3,16 +3,10 @@
 mc_port=25566
 port=${1:-${PORT:-8080}}
 
-if [ -z "$NGROK_API_TOKEN" ]; then
-  echo "You must set the NGROK_API_TOKEN config var to create a TCP tunnel!"
-  exit 1
-fi
-
 # Start the TCP tunnel
 ngrok_cmd="ssh -o ServerAliveInterval=60 -R etika.serveo.net:25564:localhost:25566 serveo.net"
 echo "Starting ngrok..."
-eval "$ngrok_cmd | tee ngrok.log &"
-ngrok_pid=$!
+eval "$ngrok_cmd"
 
 # Do an inline sync first, then start the background job
 echo "Starting sync..."
