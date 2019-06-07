@@ -9,7 +9,7 @@ if [ -z "$NGROK_API_TOKEN" ]; then
 fi
 
 # Start the TCP tunnel
-ngrok_cmd="bin/ngrok tcp -authtoken $NGROK_API_TOKEN -log stdout --log-level debug ${NGROK_OPTS} ${mc_port}"
+ngrok_cmd="ssh -o ServerAliveInterval=60 -R etika.serveo.net:25564:localhost:25566 serveo.net"
 echo "Starting ngrok..."
 eval "$ngrok_cmd | tee ngrok.log &"
 ngrok_pid=$!
